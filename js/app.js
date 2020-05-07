@@ -26,11 +26,18 @@ $(document).ready(function(){
 //   }
   }).done(function(data) {
     let kelvin_temp = data.main.temp;
+    // converting K to C
     let celsius_temp = kelvin_temp - 273.15;
       console.log(data);
       $("#weather").text(data.weather[0].main);
       $("#temperature").text(Math.round(celsius_temp));
       $("#wind").text(data.wind.speed);
+      //converting degrees to wind direction
+    let directions = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW","N"];
+    let deg = data.wind.deg;
+    let wind_dir = Math.floor((deg/22.5) + 0.5);
+      console.log(directions[(wind_dir%16)]);
+      $("#wind_deg").text(directions[(wind_dir%16)]);
   });
 });
 }
@@ -38,4 +45,3 @@ $(document).ready(function(){
 function refreshPage() { 
   location.reload(); 
 }
-//To make a function for the wind direction
